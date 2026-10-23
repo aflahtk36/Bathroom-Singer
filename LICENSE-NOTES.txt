@@ -1,1 +1,0 @@
-Use music and images you own, that are public domain, or that you are licensed to use. This prototype processes media locally in the browser.
