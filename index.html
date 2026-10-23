@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Bathroom Singer — Sing to Reveal</title><link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header><div class="brand"><span>Bathroom Singer</span></div><div class="tag">SING TO REVEAL</div></header>
+<main>
+<section class="intro"><div><p class="eyebrow">YOUR VOICE IS THE KEY</p><h1>Sing the notes.<br><em>Reveal the picture.</em></h1><p class="sub">Match the melody to bring the hidden image into focus. Use the built-in tune or upload your own song. The more accurately you sing, the more of the image comes back.</p></div><div class="how"><span>01 · Keep the artwork or upload a picture</span><span>02 · Start the melody</span><span>03 · Sing in tune</span></div></section>
+<section class="workspace">
+<div class="panel image-panel"><div class="panel-head"><div><p class="eyebrow">THE HIDDEN IMAGE</p><h2>Your reveal</h2></div><span id="status" class="status">Waiting to start</span></div>
+<div class="canvas-wrap"><canvas id="reveal" width="256" height="256" aria-label="Image reveal canvas"></canvas><div id="empty" class="empty"><div class="upload-icon">+</div><b>Choose an image</b><span>JPG, PNG or WebP</span></div></div>
+<div class="upload-row"><label class="file-button">Choose image<input id="pic" type="file" accept="image/*"></label><span id="fileName">No image selected</span></div>
+<div class="progress-line"><span>Image clarity</span><b id="clarity">0%</b></div><div class="meter"><div id="clarityBar"></div></div>
+</div>
+<div class="panel sing-panel"><div class="panel-head"><div><p class="eyebrow">LIVE PERFORMANCE</p><h2>Sing the melody</h2></div><div class="score"><strong id="score">—</strong><small>ACCURACY</small></div></div>
+<div class="note-card"><span class="muted">TARGET NOTE</span><div class="target-note" id="tgt">–</div><div class="pitch-diff" id="diff">Start the song to begin</div><div class="pitch-track"><div id="pitchMarker"></div></div><div class="track-labels"><span>Flat</span><span>In tune</span><span>Sharp</span></div></div>
+<div class="spectrum-box"><div class="spectrum-head"><span>LIVE MICROPHONE SPECTRUM</span><span id="livePitch">Pitch: —</span></div><canvas id="spectrum" width="520" height="100"></canvas></div>
+<div class="song-info"><div><span class="muted">CURRENT SONG</span><b id="songTitle">Twinkle, Twinkle, Little Star</b><small id="songMeta">42 notes · synthesized guide</small></div><select id="lvl" class="pill"><option value="easy" selected>Easy</option><option value="normal">Normal</option><option value="hard">Hard</option></select></div>
+<div class="song-load">
+<div class="upload-row"><label class="file-button">Choose song<input id="songf" type="file" accept="audio/*"></label><span id="songName">Built-in tune</span></div>
+<div class="upload-row"><label class="file-button">Vocals only<input id="vocf" type="file" accept="audio/*"></label><span id="vocName">Optional vocal track improves note detection</span></div>
+<div class="upload-row"><button id="build" class="secondary">Find the melody</button><span id="bmsg">For best results, add a vocals-only track.</span></div>
+<div class="opts"><label><input type="checkbox" id="key" checked> Forgive my key</label><label><input type="checkbox" id="guide" checked> Guide tone</label><label class="lat-field">Mic delay <input type="number" id="lat" min="0" max="400" step="10" value="50" title="Bluetooth headphones can add 150–300 ms"> ms</label></div>
+</div>
+
+<div class="controls"><button id="go" class="primary">Start singing</button><button id="stop" class="secondary" disabled>Stop</button><button id="test" class="secondary">Test run</button></div><p class="hint">Use headphones so the microphone hears your voice, not the speakers. Allow microphone access when prompted. Wired headphones usually have less delay; if the score feels early or late, adjust <b>Mic delay</b>. The mic needs localhost or HTTPS.</p><p class="hint" id="msg"></p>
+</div>
+</section>
+<section class="bottom-grid"><div class="panel"><p class="eyebrow">THE IDEA</p><h2>How your voice reveals the picture</h2><p><strong>1. We listen to your pitch.</strong> The microphone captures your voice, and a pitch detector estimates the musical note you are singing. We compare it with the target note at that moment.</p><p><strong>2. Each note earns a score.</strong> Singing close to the target pitch for more of the note earns more credit. Easy mode allows a wider pitch range and gives you room to learn.</p><p><strong>3. The picture is transformed.</strong> A 2-D Fast Fourier Transform (FFT) turns the image into spatial-frequency components. Low frequencies describe broad shapes; high frequencies describe edges and fine details.</p><p><strong>4. Notes restore detail.</strong> As the song progresses, each note controls a band of image frequencies. Better singing restores more of that band; missed notes leave some noise behind. An inverse FFT turns those components back into a picture. The reveal keeps the best progress you have made, so it will not get blurrier when you miss a later note.</p><p class="hint">For a fair test, use headphones. If the song comes from speakers near the microphone, the mic may hear the backing track instead of your voice.</p></div><div class="panel"><p class="eyebrow">SESSION</p><h2 id="sessionTitle">Ready when you are</h2><p id="sessionText">Pick an image (or use the built-in one), then press Start singing. Everything stays in your browser.</p><div id="res"></div><button id="resetBtn" class="text-button">Reset reveal</button></div></section>
+<footer>Bathroom Singer · Prototype · Audio and image stay in your browser</footer>
+</main><script src="app.js"></script>
+</body></html>
